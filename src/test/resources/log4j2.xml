@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60" status="warn">
+    <!-- Above automatically reloads configuration every XX secs and only log internal log4j messages at level WARN -->
+    <Loggers>
+        <!-- WebShop -->
+        <Logger name="dk" level="debug" additivity="false">
+            <AppenderRef ref="TestLogFile" level="debug"/>
+        </Logger>
+        <Root level="error">
+            <AppenderRef ref="Console" level="error"/>
+        </Root>
+    </Loggers>
+
+    <Appenders>
+        <File name="TestLogFile" append="false">
+            <FileName>target/log/test.log</FileName>
+            <PatternLayout>
+                <Pattern>%d{dd-MM-yyyy HH:mm:ss:SS} %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </File>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%d{dd-MM-yyyy HH:mm:ss:SS} %-5level %logger{36} - %msg%n</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+</Configuration>
