@@ -29,7 +29,19 @@
                     <ignorePackaging>true</ignorePackaging>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <version>1.11</version>
+                <configuration>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>org.apache.maven.reporting</groupId>
+                            <artifactId>maven-reporting-api</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
