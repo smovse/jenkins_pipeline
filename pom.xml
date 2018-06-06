@@ -8,6 +8,30 @@
     <name>jenkins_file</name>
     <url>http://maven.apache.org</url>
 
+    <properties>
+        <tomcatDeploySource>${project.build.directory}/jenkinsPipeline.war</tomcatDeploySource>
+        <tomcatContextPath>/jenkinsPipeline</tomcatContextPath> <!-- Do NOT omit the '/' -->
+    </properties>
+
+    <build>
+        <finalName>jenkinsPipeline</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration combine.self="override">
+                    <url>http://${tomcatHost}:${tomcatPort}/manager/text</url>
+                    <username>${tomcatUsername}</username>
+                    <password>${tomcatPassword}</password>
+                    <path>${tomcatContextPath}</path>
+                    <warFile>${tomcatDeploySource}</warFile>
+                    <ignorePackaging>true</ignorePackaging>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
     <dependencies>
         <dependency>
             <groupId>org.apache.struts</groupId>
