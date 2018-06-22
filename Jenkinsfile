@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Pre') {
             steps {
-                shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+                sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
             }
         }
         stage('Build') {
