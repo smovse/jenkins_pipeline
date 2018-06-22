@@ -28,6 +28,12 @@ pipeline {
             steps {
                 sh 'echo "Deploying to DEV"'
             }
+            when {
+                environment name: 'DEPLOY_DEV', value: 'no'
+            }
+            steps {
+                sh 'echo "Cancelling deploy..."'
+            }
         }
     }
     post {
