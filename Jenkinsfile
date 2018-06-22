@@ -14,9 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                input {
-                    message 'Deploy?'
-                }
+                input: message 'Deploy?'
             }
         }
     }
