@@ -12,9 +12,21 @@ pipeline {
                 sh 'mvn test'
             }
         }
-        stage('Deploy') {
+        stage('Decide deploy') {
+            agent none
             steps {
-                def userInput = input(message: 'Deploy?')
+                script {
+                    env.DEPLOY_DEV = input message: 'Deploy on DEV?',
+                        parameters: [choice(name: 'Deploy on dev', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build to DEV')]
+                }
+            }
+        }
+        stage('Deploy') {
+            when {
+                environment name: 'DEPLOY_DEV', value: 'yes'
+            }
+            steps {
+                sh 'echo "Deploying to DEV"'
             }
         }
     }
