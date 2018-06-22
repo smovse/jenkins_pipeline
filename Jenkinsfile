@@ -12,6 +12,13 @@ pipeline {
                 sh 'mvn test'
             }
         }
+        stage('Deploy') {
+            steps {
+                input {
+                    message 'Deploy?'
+                }
+            }
+        }
     }
     post {
         always {
