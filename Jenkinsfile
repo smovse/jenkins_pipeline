@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage('Pre') {
-            steps {
-                script {
-                    shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
-                }
-            }
-        }
         stage('Build') {
             steps {
                 sh 'echo "Here we go..."'
