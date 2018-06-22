@@ -28,6 +28,8 @@ pipeline {
             steps {
                 sh 'echo "Deploying to DEV"'
             }
+        }
+        stage('No deploy') {
             when {
                 environment name: 'DEPLOY_DEV', value: 'no'
             }
