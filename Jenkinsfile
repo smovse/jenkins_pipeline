@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                input message 'Deploy?'
+                def userInput = input(message: 'Deploy?')
             }
         }
     }
