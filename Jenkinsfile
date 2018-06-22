@@ -1,11 +1,15 @@
 pipeline {
     agent any
     stages {
+        stage('Pre') {
+            steps {
+                shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
+            }
+        }
         stage('Build') {
             steps {
                 sh 'echo "Here we go..."'
                 sh 'mvn clean install -Dmaven.test.skip=true'
-                shortCommit = sh(returnStdout: true, script: "git log -n 1 --pretty=format:'%h'").trim()
             }
         }
         stage('Test') {
