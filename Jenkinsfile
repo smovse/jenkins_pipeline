@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('List branches') {
             steps {
-                sh 'echo "Here we go..."'
+                sh 'echo "Listing branches..."'
                 sh 'git branch -r'
             }
         }
