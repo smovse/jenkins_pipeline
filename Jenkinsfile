@@ -4,7 +4,7 @@ pipeline {
         stage('List branches') {
             steps {
                 sh 'echo "Listing branches..."'
-                sh 'git ls-remote --heads https://github.com/smovse/jenkins_pipeline.git > branches.txt'
+                sh 'git ls-remote --heads https://github.com/smovse/jenkins_pipeline.git >> branches.txt'
             }
         }
         stage('Build') {
