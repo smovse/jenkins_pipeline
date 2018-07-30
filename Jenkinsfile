@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+        stage('List branches') {
+            steps {
+                sh 'echo "Here we go..."'
+                sh 'git branch -r'
+            }
+        }
         stage('Build') {
             steps {
                 sh 'echo "Here we go..."'
@@ -40,19 +46,19 @@ pipeline {
     }
     post {
         always {
-            echo 'This will always run'
+            echo 'This will always run aka. "always"'
         }
         success {
-            echo 'This will run only if successful'
+            echo 'This will run only if successful aka. "success"'
         }
         failure {
-            echo 'This will run only if failed'
+            echo 'This will run only if failed aka. "failure"'
         }
         unstable {
-            echo 'This will run only if the run was marked as unstable'
+            echo 'This will run only if the run was marked as unstable aka. "unstable"'
         }
         changed {
-            echo 'This will run only if the state of the Pipeline has changed'
+            echo 'This will run only if the state of the Pipeline has changed aka. "changed"'
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
     }
