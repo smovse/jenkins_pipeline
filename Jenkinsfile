@@ -17,18 +17,9 @@ pipeline {
 
   stages {
     stage('List branches') {
-      parallel {
-        stage('List branches') {
-          steps {
-            sh 'echo "Listing branches to file branches.txt..."'
-            sh 'git ls-remote --heads https://github.com/smovse/jenkins_pipeline.git > branches.txt'
-          }
-        }
-        stage('') {
-          steps {
-            echo 'test'
-          }
-        }
+      steps {
+        sh 'echo "Listing branches to file branches.txt..."'
+        sh 'git ls-remote --heads https://github.com/smovse/jenkins_pipeline.git > branches.txt'
       }
     }
     stage('Build') {
