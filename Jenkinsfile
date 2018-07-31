@@ -1,18 +1,11 @@
 pipeline {
   agent any
   parameters {
-          choice(
-              name: 'CHOICE_1',
-              choices: 'choice_1\nchoice_2\nchoice_3',
-              description: 'CHOICE_1 description'
-          )
-
-          choice(
-              name: 'CHOICE_2',
-              choices: 'choice_1\nchoice_2\nchoice_3\nchoice_4\nchoice_5\nchoice_6\nchoice_7\nchoice_8\nchoice_9',
-              description: 'CHOICE_2 description'
-          )
-
+      choice(
+          name: 'Miljø',
+          choices: 'Udvikling\nTest\nStaging\nProduktion',
+          description: 'Vælg hvor denne branch skal deployes'
+      )
   }
 
   stages {
