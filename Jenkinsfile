@@ -17,10 +17,9 @@ node {
 
 @NonCPS
 def inputParamsString() {
-        def list = []
-        list << 'test1'
-        list << 'test2'
-    }
-    
+    def list = []
+    list << 'test1'
+    list << 'test2'
     list.join("\n")
 }
+    
