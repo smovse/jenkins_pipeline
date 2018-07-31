@@ -1,65 +1,26 @@
-pipeline {
-    agent any
-    stages {
-        stage('List branches') {
-            steps {
-                sh 'echo "Listing branches..."'
-                sh 'git ls-remote --heads https://github.com/smovse/jenkins_pipeline.git > branches.txt'
-            }
-        }
-        stage('Build') {
-            steps {
-                sh 'echo "Here we go..."'
-                sh 'mvn clean install -Dmaven.test.skip=true'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-        }
-        stage('Decide deploy') {
-            agent none
-            steps {
-                script {
-                    env.DEPLOY_DEV = input message: 'Deploy on DEV?',
-                        parameters: [choice(name: 'Deploy on dev', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build to DEV')]
-                }
-            }
-        }
-        stage('Deploy') {
-            when {
-                environment name: 'DEPLOY_DEV', value: 'yes'
-            }
-            steps {
-                sh 'echo "Deploying to DEV"'
-            }
-        }
-        stage('No deploy') {
-            when {
-                environment name: 'DEPLOY_DEV', value: 'no'
-            }
-            steps {
-                sh 'echo "Cancelling deploy..."'
-            }
-        }
+node {
+    // Change `url` value to your own
+    git url: 'https://github.com/smovse/jenkins_pipeline.git'
+    
+    def inputParams = inputParamsString()
+    
+    // Change `message` value to the message you want to display
+    // Change `description` value to the description you want
+    def selectedProperty = input( id: 'userInput', message: 'Choose properties file', parameters: [ [$class: 'ChoiceParameterDefinition', choices: inputParams, description: 'Properties', name: 'prop'] ])
+    
+    println "Property: $selectedProperty"
+    
+    // Change `job` value to your downstream job name
+    // Change `name` value to the name you gave the string parameter in your downstream job
+    build job: 'downstream-freestyle', parameters: [[$class: 'StringParameterValue', name: 'prop', value: selectedProperty]]
+}
+
+@NonCPS
+def inputParamsString() {
+        def list = []
+        list << 'test1'
+        list << 'test2'
     }
-    post {
-        always {
-            echo 'This will always run aka. "always"'
-        }
-        success {
-            echo 'This will run only if successful aka. "success"'
-        }
-        failure {
-            echo 'This will run only if failed aka. "failure"'
-        }
-        unstable {
-            echo 'This will run only if the run was marked as unstable aka. "unstable"'
-        }
-        changed {
-            echo 'This will run only if the state of the Pipeline has changed aka. "changed"'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
-    }
+    
+    list.join("\n")
 }
