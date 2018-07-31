@@ -6,13 +6,13 @@ node {
     
     // Change `message` value to the message you want to display
     // Change `description` value to the description you want
-    def selectedProperty = input( id: 'userInput', message: 'Choose properties file', parameters: [ [$class: 'ChoiceParameterDefinition', choices: inputParams, description: 'Properties', name: 'prop'] ])
+    def selectedProperty = input( id: 'userInput', message: 'Vælg branch der skal deployes', parameters: [ [$class: 'ChoiceParameterDefinition', choices: inputParams, description: '', name: 'Branch'] ])
     
     println "Property: $selectedProperty"
     
     // Change `job` value to your downstream job name
     // Change `name` value to the name you gave the string parameter in your downstream job
-    build job: 'downstream-freestyle', parameters: [[$class: 'StringParameterValue', name: 'prop', value: selectedProperty]]
+    build job: 'downstream-freestyle', parameters: [[$class: 'StringParameterValue', name: 'Branch', value: selectedProperty]]
 }
 
 @NonCPS
