@@ -33,27 +33,26 @@ pipeline {
         sh 'mvn test'
       }
     }
-    stage('Decide deploy') {
-      steps {
-        script {
-          env.DEPLOY_DEV = input message: 'Deploy on DEV?',
-          parameters: [choice(name: 'Deploy on dev', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build to DEV')]
-        }
-
-      }
-    }
-    stage('Deploy') {
-      when {
-        environment name: 'DEPLOY_DEV', value: 'yes'
-      }
-      steps {
-        sh 'echo "Deploying to DEV"'
-      }
-    }
+//    stage('Decide deploy') {
+//      steps {
+//        script {
+//          env.DEPLOY_DEV = input message: 'Deploy on DEV?',
+//          parameters: [choice(name: 'Deploy on dev', choices: 'no\nyes', description: 'Choose "yes" if you want to deploy this build to DEV')]
+//        }
+//      }
+//    }
+//    stage('Deploy') {
+//      when {
+//        environment name: 'DEPLOY_DEV', value: 'yes'
+//      }
+//      steps {
+//        sh 'echo "Deploying to DEV"'
+//      }
+//    }
     stage('No deploy') {
-      when {
-        environment name: 'DEPLOY_DEV', value: 'no'
-      }
+//      when {
+//        environment name: 'DEPLOY_DEV', value: 'no'
+//      }
       steps {
         sh 'echo "Cancelling deploy..."'
       }
