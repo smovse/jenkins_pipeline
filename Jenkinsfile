@@ -2,9 +2,9 @@ pipeline {
   agent any
   parameters {
       choice(
-          name: 'Miljø',
+          name: 'MiljÃ¸',
           choices: 'Udvikling\nTest\nStaging\nProduktion',
-          description: 'Vælg hvor denne branch skal deployes'
+          description: 'VÃ¦lg hvor denne branch skal deployes'
       )
   }
 
