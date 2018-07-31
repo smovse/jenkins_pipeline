@@ -4,7 +4,7 @@ pipeline {
       choice(
           name: 'Miljø',
           choices: 'Udvikling\nTest\nStaging\nProduktion',
-          description: 'Vælg hvor denne branch skal deployes'
+          description: 'Miljø Vælg hvor denne branch skal deployes'
       )
   }
 
