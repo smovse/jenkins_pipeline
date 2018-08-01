@@ -1,11 +1,11 @@
 pipeline {
   agent any
   parameters {
-      choice(
-          name: 'DEPLOY_ENV',
-          choices: 'Udvikling\nTest\nStaging\nProduktion',
-          description: 'Vælg hvor denne branch skal deployes'
-      )
+    choice(
+      name: 'DEPLOY_ENV',
+      choices: 'Udvikling\nTest\nStaging\nProduktion',
+      description: 'Vælg hvor denne branch skal deployes'
+    )
   }
 
   stages {
@@ -22,31 +22,31 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'echo "Deploying..."'
+        sh 'echo "Deploying to ${params.DEPLOY_ENV}..."'
         sh 'mvn tomcat7:redeploy'
       }
     }
   }
   post {
-    always {
-      echo 'This will always run aka. "always"'
-    }
+//    always {
+//      echo 'This will always run aka. "always"'
+//    }
 
     success {
-      echo 'This will run only if successful aka. "success"'
+      echo 'The build is successful :-)'
     }
 
     failure {
-      echo 'This will run only if failed aka. "failure"'
+      echo 'The build failed :-('
     }
 
     unstable {
-      echo 'This will run only if the run was marked as unstable aka. "unstable"'
+      echo 'The build unstable'
     }
 
-    changed {
-      echo 'This will run only if the state of the Pipeline has changed aka. "changed"'
-      echo 'For example, if the Pipeline was previously failing but is now successful'
-    }
+//    changed {
+//      echo 'This will run only if the state of the Pipeline has changed aka. "changed"'
+//      echo 'For example, if the Pipeline was previously failing but is now successful'
+//    }
   }
 }
