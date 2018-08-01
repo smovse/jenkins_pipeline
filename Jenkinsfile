@@ -22,7 +22,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh 'echo "Deploying to ${env.DEPLOY_ENV}..."'
+        sh 'echo "Deploying to ${params.DEPLOY_ENV}..."'
         sh 'mvn tomcat7:redeploy'
       }
     }
